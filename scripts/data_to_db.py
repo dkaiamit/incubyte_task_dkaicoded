@@ -3,9 +3,13 @@ from google.cloud import bigquery
 import pyarrow
 from google.oauth2 import service_account
 import db_dtypes
+import os
 
 # Path to service account key file
-key_path = r"C:\Users\amit.singh\OneDrive - Lumiq (Crisp Analytics Pvt Ltd)\Desktop\credentials.json"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CREDENTIALS_PATH = os.path.join(BASE_DIR, "credentials", "credentials.json")
+key_path = CREDENTIALS_PATH
+dataset_path=os.path.join(BASE_DIR,"dataset","assessment_dataset.csv")
 
 # Initialize BigQuery client
 credentials = service_account.Credentials.from_service_account_file(key_path)
@@ -19,7 +23,7 @@ for dataset in datasets:
 table_id = "sales_table"
 table_path = f"{project_id}.{dataset_id}.{table_id}"
 
-df=pd.read_csv(r"C:\Users\amit.singh\OneDrive - Lumiq (Crisp Analytics Pvt Ltd)\Desktop\assessment_dataset.csv")
+df=pd.read_csv(dataset_path)
 query = f"SELECT DISTINCT(TransactionID) FROM `{project_id}.{dataset_id}.{table_id}`"
 existing_df = client.query(query).to_dataframe()
 

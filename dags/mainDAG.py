@@ -1,14 +1,30 @@
-from dagClass import *
+from airflow import DAG
+from airflow.operators.bash import BashOperator
+from datetime import datetime, timedelta
 import os
 
-current_dir = os.getcwd()
-previous_dir = os.path.dirname(current_dir)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FILE_PATH = os.path.join(BASE_DIR, "scripts", "data_to_db.py")
 
-dagObj = dagClass()
+default_args = {
+    "owner": "airflow",
+    "depends_on_past": False,
+    "start_date": datetime(2024, 1, 1),
+    "retries": 1,
+    "retry_delay": timedelta(minutes=5),
+}
 
-dag =dagObj.create_dag("mainDAG", schedule_interval="0 1 * * *")
+dag = DAG(
+    "mainDAG",
+    default_args=default_args,
+    schedule_interval="0 0 * * *",  
+    catchup=False,
+)
 
-file_name=str(previous_dir) + '/scripts/data_to_db.py'
-t1 =dagObj.add_python_script(dag, "Task1", file_name)
+task = BashOperator(
+    task_id="run_data_to_db",
+    bash_command="python {}".format(FILE_PATH),
+    dag=dag,
+)
 
-t1
+task
