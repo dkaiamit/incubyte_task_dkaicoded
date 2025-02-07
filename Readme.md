@@ -88,5 +88,7 @@ Check if the data is successfully uploaded to the specified dataset and table.
 If there are permission errors, ensure your Google Cloud service account has BigQuery Data Editor and Storage Admin roles.
 Check logs in Airflow UI if the DAG fails.
 
+### Scope of Imporvement
+Although this Data is Synthetically generated we can still handle null values in efficient ways,like using mean,median and mode(for categorical values such as productname) to populate data.But leaving at as a scope of improvement,we can also establish cicd pipelines.
 
 
