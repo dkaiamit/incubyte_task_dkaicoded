@@ -30,8 +30,8 @@ Before running the project, ensure you have:
 ### Step 1: Clone the Repository
 
 ```sh
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/dkaiamit/incubyte_task_dkaicoded.git
+cd incubyte_task_dkaicoded
 ```
 
 
