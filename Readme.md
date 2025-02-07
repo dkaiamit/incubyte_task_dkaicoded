@@ -87,7 +87,6 @@ Check if the data is successfully uploaded to the specified dataset and table.
 ### Troubleshooting
 If there are permission errors, ensure your Google Cloud service account has BigQuery Data Editor and Storage Admin roles.
 Check logs in Airflow UI if the DAG fails.
-### Contributing
-Feel free to submit issues or pull requests for improvements.
+
 
 
